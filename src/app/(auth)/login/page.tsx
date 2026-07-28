@@ -62,7 +62,7 @@ export default function Login() {
 
   return (
     <>
-      {apiError && <p>{apiError}</p>}
+      {apiError !== "" && <p>{apiError}</p>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>this is something</h1>
         {/* {...register("field name")} to connect to the hook form */}
