@@ -1,34 +1,37 @@
 "use client";
 
 import { useState } from "react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
+// import { z } from "zod";
+// import { useForm } from "react-hook-form";
 import { useCreateApplicationMutation } from "@/store/applicationApi";
-import { zodResolver } from "@hookform/resolvers/zod";
+// import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import ApplicationForm, {
+  newApplicationForm,
+} from "@/components/ApplicationForm";
 
-const newApplicationSchema = z.object({
-  company_name: z.string(),
-  role: z.string(),
-  portal: z.string(),
-  application_status: z.string(),
-  date_of_interview: z.string(),
-});
+// const newApplicationSchema = z.object({
+//   company_name: z.string(),
+//   role: z.string(),
+//   portal: z.string(),
+//   application_status: z.string(),
+//   date_of_interview: z.string(),
+// });
 
-type newApplicationForm = z.infer<typeof newApplicationSchema>;
+// type newApplicationForm = z.infer<typeof newApplicationSchema>;
 
 export default function NewApplication() {
   const [apiError, setApiError] = useState<string>("");
   const router = useRouter();
   const [createApplication, { isLoading, isError, isSuccess }] =
     useCreateApplicationMutation();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<newApplicationForm>({
-    resolver: zodResolver(newApplicationSchema),
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<newApplicationForm>({
+  //   resolver: zodResolver(newApplicationSchema),
+  // });
 
   const onSubmit = async (data: newApplicationForm) => {
     console.log("onSUbmit", data);
@@ -44,13 +47,10 @@ export default function NewApplication() {
     }
   };
 
-  const inputStyle =
-    "border border-gray-200 rounded-md b-gray-400 p-2 text-white w-full max-w-2xs";
-
   return (
     <section className="flex flex-col justify-center items-center h-screen">
       <h1 className="m-4 text-2xl text-gray-200">Create Application</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+      {/* <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <input
           {...register("company_name")}
           placeholder="Company name"
@@ -99,7 +99,8 @@ export default function NewApplication() {
         )}
 
         <button type="submit">{isLoading ? "Creating..." : "Create"}</button>
-      </form>
+      </form> */}
+      <ApplicationForm onSubmit={onSubmit} isLoading={isLoading} />
     </section>
   );
 }
