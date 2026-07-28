@@ -17,8 +17,11 @@ export default function ApplicationCard({
   // console.log("application props", application);
   const [deleteUser, { isLoading, isError }] = useDeleteApplicationMutation();
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: number | undefined) => {
     try {
+      if (id === undefined) {
+        return;
+      }
       console.log("something inside try deletion");
       const result = await deleteUser(id).unwrap();
       console.log("result of delettion", result);

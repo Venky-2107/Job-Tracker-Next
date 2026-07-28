@@ -4,6 +4,6 @@ export type ApplicationRequest = {
   application_status: string;
   portal: string;
   date_of_interview?: string;
-  id: number;
+  id?: number;
   date_applied?: string;
 };
