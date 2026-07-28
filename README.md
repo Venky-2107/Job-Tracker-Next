@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+1: Why??
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
+answer: When you write store.getState(), it returns the entire Redux state. ReturnType<typeof store.getState> captures the exact shape of that state as a TypeScript type.
+
+So when you do this anywhere in your app:
+
+typescript
+const applications = useAppSelector(state => state.applications)
+
+TypeScript knows exactly what's inside state — it gives you autocomplete and catches mistakes at compile time instead of runtime.
+
+Without it, state would be type any — no autocomplete, no error checking.
+
+Simple analogy: It's like telling TypeScript "here's the blueprint of our store, use it to help me write code correctly."
