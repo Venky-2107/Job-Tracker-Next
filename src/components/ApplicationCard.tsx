@@ -1,5 +1,6 @@
 import { ApplicationRequest } from "@/types";
 import { useDeleteApplicationMutation } from "@/store/applicationApi";
+import { useRouter } from "next/navigation";
 
 export default function ApplicationCard({
   application,
@@ -16,6 +17,7 @@ export default function ApplicationCard({
   } = application;
   // console.log("application props", application);
   const [deleteUser, { isLoading, isError }] = useDeleteApplicationMutation();
+  const router = useRouter();
 
   const handleDelete = async (id: number | undefined) => {
     try {
@@ -43,6 +45,12 @@ export default function ApplicationCard({
       <h3>{date_applied}</h3>
 
       <section className="mt-auto self-end">
+        <button
+          className="text-white bg-red-400 rounded-xl px-2"
+          onClick={() => router.push(`/application/${id}/edit`)}
+        >
+          Edit
+        </button>
         <button
           className="text-white bg-red-400 rounded-xl px-2"
           onClick={() => handleDelete(id)}

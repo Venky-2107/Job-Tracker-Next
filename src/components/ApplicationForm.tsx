@@ -1,7 +1,7 @@
 "use client";
 
 import { ApplicationRequest } from "@/types";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,9 +31,18 @@ export default function ApplicationForm(props: ApplicationFormProps) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<newApplicationForm>({
     resolver: zodResolver(newApplicationSchema),
+    defaultValues: defaultValues,
   });
+  const hasReset = useRef(false);
+  //   useEffect(() => {
+  //     if (defaultValues) {
+  //       reset(defaultValues); // reset form with new values when data arrives
+  //       hasReset.current = true;
+  //     }
+  //   }, [defaultValues]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
       <input
@@ -79,7 +88,11 @@ export default function ApplicationForm(props: ApplicationFormProps) {
         </p>
       )}
 
-      <button type="submit">{isLoading ? "Creating..." : "Create"}</button>
+      {defaultValues ? (
+        <button type="submit">{isLoading ? "Updating..." : "Update"}</button>
+      ) : (
+        <button type="submit">{isLoading ? "Creating..." : "Create"}</button>
+      )}
     </form>
   );
 }

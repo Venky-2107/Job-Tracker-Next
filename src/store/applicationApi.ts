@@ -40,6 +40,13 @@ export const applicationApi = api.injectEndpoints({
       }),
       providesTags: ["Applications"],
     }),
+    FetchApplicationById: builder.query({
+      query: (id: number) => ({
+        url: `/application/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Applications"],
+    }),
   }),
 });
 
@@ -48,4 +55,5 @@ export const {
   useUpdateApplicationMutation,
   useDeleteApplicationMutation,
   useFetchApplicationsQuery,
+  useFetchApplicationByIdQuery,
 } = applicationApi;
